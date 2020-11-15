@@ -42,16 +42,17 @@ public class graph1 {
   }
 
   // true if vertex v has incident uncoloured edge
-  static boolean liveVertex(int[][] g, int v, int n, int r) {
+  static boolean liveVertex(int[][] g, int v) {
     int c;
     boolean result;
     int count;
+    int n = g.length;
     count = 0;
     result = false;
     for(c = 1; c < n; c++) {
       if (g[c][v] == -1) {
         count++;
-        if (count > n - r) {
+        if (count > 0) {
           result = true;
           break;
         }
@@ -61,9 +62,10 @@ public class graph1 {
  }
 
   // true if colour c available for some edge
-  static boolean liveColour(int[][] g, int c, int r) {
+  static boolean liveColour(int[][] g, int c) {
     int v;
     boolean result;
+    int r = g[0].length;
     result = false;
     for(v = 0; v < r; v++) {
       if (g[c][v] == -1) {
@@ -75,9 +77,10 @@ public class graph1 {
   }
 
   // true if vertex v has an edge of colour c
-  static boolean colouredWith(int[][] g, int c, int v, int r) {
+  static boolean colouredWith(int[][] g, int c, int v) {
     int u;
     boolean result;
+    int r = g[0].length;
     result = false;
     for(u = 0; u < r; u++) {
       if (g[c][u] == v) {
@@ -89,9 +92,10 @@ public class graph1 {
   }
 
   // true if edge uv has been coloured
-  static boolean edgeColoured(int[][] g, int u, int v, int n) {
+  static boolean edgeColoured(int[][] g, int u, int v) {
     int c;
     boolean result;
+    int n = g.length;
     result = false;
     for(c = 1; c < n; c++) {
       if (g[c][u] == v) {
@@ -108,18 +112,20 @@ public class graph1 {
   }
 
   //
-  static void h1(int[][] graph, int r, int n) {
+  static void h1(int[][] graph) {
     int u, v, c, w;
+    int n = graph.length;
+    int r = graph[0].length;
     do {
       u = random(0, r - 1);
-    } while (!liveVertex(graph, u, n, r));
+    } while (!liveVertex(graph, u));
     do {
       c = random(1, n - 1);
-    } while (!(liveColour(graph, c, r) & !colouredWith(graph, c, u, r)));
+    } while (!(liveColour(graph, c) & !colouredWith(graph, c, u)));
     do {
       v = random(0, r - 1);
-    } while (! (u != v & !edgeColoured(graph, u, v, n)));
-    if (! colouredWith(graph, c, v, r)) {
+    } while (! (u != v & !edgeColoured(graph, u, v)));
+    if (! colouredWith(graph, c, v)) {
       graph[c][u] = v;
       graph[c][v] = u;
     }
@@ -132,7 +138,8 @@ public class graph1 {
     }
   }
 
-  static int colourOf(int[][] g, int u, int v, int n) {
+  static int colourOf(int[][] g, int u, int v) {
+    int n = g.length;
     for(int c = 1; c < n; c++) {
       if (g[c][u] == v) {
         return c;
@@ -141,21 +148,23 @@ public class graph1 {
     return -1;
   }
 
-  static void h2(int[][] graph, int r, int n) {
+  static void h2(int[][] graph) {
     int u, v, c, d;
+    int n = graph.length;
+    int r = graph[0].length;
     do {
       c = random(1, n - 1);
-    } while (!liveColour(graph, c, r));
+    } while (!liveColour(graph, c));
     do {
       u = random(0, r - 1);
       v = random(0, r - 1);
-    } while (!(u != v & !colouredWith(graph, c, u, r) & !colouredWith(graph, c, v, r)));
-    if (!edgeColoured(graph, u, v, n)) {
+    } while (!(u != v & !colouredWith(graph, c, u) & !colouredWith(graph, c, v)));
+    if (!edgeColoured(graph, u, v)) {
       graph[c][u] = v;
       graph[c][v] = u;
     }
     else {
-      d = colourOf(graph, u, v, n);
+      d = colourOf(graph, u, v);
       graph[d][u] = -1;
       graph[d][v] = -1;
       graph[c][u] = v;
@@ -164,13 +173,15 @@ public class graph1 {
   }
 
   //
-  static boolean graphFull(int[][] g, int n, int r) {
+  static boolean graphFull(int[][] g) {
     int c;
     boolean result;
     int v;
     result = true;
+    int n = g.length;
+    int r = g[0].length;
     for(v = 0; v < r; v++) {
-      if (liveVertex(g, v, n, r)) {
+      if (liveVertex(g, v)) {
         result = false;
         break;
       }
@@ -178,35 +189,39 @@ public class graph1 {
     return result;
   }
 
-  static int oneFactorisation(int[][] graph, int n, int r) {
+  static int oneFactorisation(int[][] graph) {
     int count = 0;
+    int n = graph.length;
+    int r = graph[0].length;
     do {
       if (random(0, 1) == 0)
-        h1(graph, r, n);
+        h1(graph);
       else
-        h2(graph, r, n);
+        h2(graph);
       count++;
-    } while (!graphFull(graph, n, r));
+    } while (!graphFull(graph));
     return count;
   }
 
-  static void oh1(int[][] g1, int[][] g2, int[][][] R, int n, int r) {
+  static void oh1(int[][] g1, int[][] g2, int[][][] R) {
     int u, v, w, c1j, c1k, c2;
+    int n = g1.length;
+    int r = g1[0].length;
     do {
       u = random(0, r - 1);
-    } while (!liveVertex(g2, u, n, r));
+    } while (!liveVertex(g2, u));
     do {
       c2 = random(1, n - 1);
-    } while (!(liveColour(g2, c2, r) & !colouredWith(g2, c2, u, r)));
+    } while (!(liveColour(g2, c2) & !colouredWith(g2, c2, u)));
     do {
       v = random(0, r - 1);
-    } while (! (u != v & !edgeColoured(g2, u, v, n)));
+    } while (! (u != v & !edgeColoured(g2, u, v)));
 
-    c1j = colourOf(g1, u, v, n);
+    c1j = colourOf(g1, u, v);
 
     if (R[c1j][c2][0] != -1) return;
 
-    if (! colouredWith(g2, c2, v, r)) {
+    if (! colouredWith(g2, c2, v)) {
         g2[c2][u] = v;
         g2[c2][v] = u;
         R[c1j][c2][0] = u;
@@ -220,35 +235,37 @@ public class graph1 {
         g2[c2][v] = u;
         R[c1j][c2][0] = u;
         R[c1j][c2][1] = v;
-        c1k = colourOf(g1, w, v, n);
+        c1k = colourOf(g1, w, v);
         R[c1k][c2][0] = -1;
         R[c1k][c2][1] = -1;
     }
   }
 
-  static void oh2(int[][] g1, int[][] g2, int[][][] R, int n, int r) {
+  static void oh2(int[][] g1, int[][] g2, int[][][] R) {
     int u,v,c1j,c2i,c2k;
+    int n = g1.length;
+    int r = g1[0].length;
     do {
       c2i = random(1, n - 1);
-    } while (!liveColour(g2, c2i, r));
+    } while (!liveColour(g2, c2i));
     do {
       u = random(0, r - 1);
       v = random(0, r - 1);
     }
-    while (!(u != v & !colouredWith(g2, c2i, u, r) & !colouredWith(g2, c2i, v, r)));
+    while (!(u != v & !colouredWith(g2, c2i, u) & !colouredWith(g2, c2i, v)));
 
-    c1j = colourOf(g1, u, v, n);
+    c1j = colourOf(g1, u, v);
 
     if (R[c1j][c2i][0] != -1) return;
 
-    if (! edgeColoured(g2, u, v, n)) {
+    if (! edgeColoured(g2, u, v)) {
       g2[c2i][u] = v;
       g2[c2i][v] = u;
       R[c1j][c2i][0] = u;
       R[c1j][c2i][1] = v;
     }
     else {
-      c2k = colourOf(g2, u, v, n);
+      c2k = colourOf(g2, u, v);
       g2[c2k][u] = -1;
       g2[c2k][v] = -1;
       g2[c2i][u] = v;
@@ -272,16 +289,16 @@ public class graph1 {
     int[][] graph1 = new int[4][4];
     initGraph(graph1);
     printGraph(graph1);
-    h1(graph1, 4, 4);
+    h1(graph1);
     printGraph(graph1);
-    h2(graph1, 4, 4);
+    h2(graph1);
     printGraph(graph1);
   }
 
   static void test_oneFactorisation() {
     int[][] graph1 = new int[4][4];
     initGraph(graph1);
-    oneFactorisation(graph1, 4, 4);
+    oneFactorisation(graph1);
     printGraph(graph1);
   }
 
@@ -292,10 +309,10 @@ public class graph1 {
     int[][] graph2 = new int[n][n];
     int[][][] R = new int[n][n][2];
     initGraph(graph1);
-    oneFactorisation(graph1, n, r);
+    oneFactorisation(graph1);
     initGraph(graph2);
     initRoomSquare(R);
-    oh1(graph1, graph2, R, n, r);
+    oh1(graph1, graph2, R);
     printRoomSquare(R);
   }
 
@@ -306,10 +323,10 @@ public class graph1 {
     int[][] graph2 = new int[n][n];
     int[][][] R = new int[n][n][2];
     initGraph(graph1);
-    oneFactorisation(graph1, n, r);
+    oneFactorisation(graph1);
     initGraph(graph2);
     initRoomSquare(R);
-    oh2(graph1, graph2, R, n, r);
+    oh2(graph1, graph2, R);
     printRoomSquare(R);
   }
 
@@ -326,16 +343,16 @@ public class graph1 {
 
     for (int i = 0; i < tries; i++) {
       initGraph(graph1);
-      oneFactorisation(graph1, n, r);
+      oneFactorisation(graph1);
       initGraph(graph2);
       initRoomSquare(R);
       for (int j = 0; j < count; j++) {
         if (random(0, 1) == 0) {
-          oh1(graph1, graph2, R, n, r);
+          oh1(graph1, graph2, R);
         } else {
-          oh2(graph1, graph2, R, n, r);
+          oh2(graph1, graph2, R);
         }
-        if (graphFull(graph2, n, r)) {
+        if (graphFull(graph2)) {
           System.err.println();
           System.err.println("Got one. " + j +" iterations required.");
           printRoomSquare(R);
