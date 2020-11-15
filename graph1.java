@@ -1,26 +1,26 @@
 public class graph1 {
 
   static void printGraph(int[][] graph) {
-    for(int i = 0;i < graph.length;i++) {
+    for(int i = 0; i < graph.length; i++) {
       System.out.print("<");
-        for(int j=0; j < graph[i].length; j++) {
-          System.out.print(((graph[i][j] < 0)?"-":String.valueOf(graph[i][j])) + ((j == graph[i].length-1)?"":","));
-        }
+      for(int j = 0; j < graph[i].length; j++) {
+        System.out.print(((graph[i][j] < 0)?"-":String.valueOf(graph[i][j])) + ((j == graph[i].length - 1)?"":","));
+      }
       System.out.println(">");
     }
   }
 
   static void initGraph(int[][] graph) {
-    for(int i = 1;i < graph.length;i++) {
-      for(int j=0; j < graph[i].length; j++) {
+    for(int i = 1;i < graph.length; i++) {
+      for(int j = 0; j < graph[i].length; j++) {
         graph[i][j] = -1;
       }
     }
   }
 
   static void initRoomSquare(int[][][] R) {
-    for(int i = 1;i < R.length;i++) {
-      for(int j=1; j < R[i].length; j++) {
+    for(int i = 1;i < R.length; i++) {
+      for(int j = 1; j < R[i].length; j++) {
         R[i][j][0] = -1;
         R[i][j][1] = -1;
       }
@@ -30,25 +30,28 @@ public class graph1 {
   static void printRoomSquare(int[][][] R) {
     for(int i = 1; i < R.length; i++) {
       System.out.print("<");
-        for(int j = 1; j < R[i].length; j++) {
-            System.out.print("<");
-            System.out.print(((R[i][j][0] < 0)?"-":String.valueOf(R[i][j][0])));
-            System.out.print(",");
-            System.out.print(((R[i][j][1] < 0)?"-":String.valueOf(R[i][j][1])));
-            System.out.print(">");
-        }
-        System.out.println(">");
+      for(int j = 1; j < R[i].length; j++) {
+        System.out.print("<");
+        System.out.print(((R[i][j][0] < 0)?"-":String.valueOf(R[i][j][0])));
+        System.out.print(",");
+        System.out.print(((R[i][j][1] < 0)?"-":String.valueOf(R[i][j][1])));
+        System.out.print(">");
+      }
+      System.out.println(">");
     }
   }
 
   // true if vertex v has incident uncoloured edge
   static boolean liveVertex(int[][] g, int v, int n, int r) {
-    int c; boolean result; int count;
-    count = 0; result = false;
-    for(c = 1;c < n;c++) {
+    int c;
+    boolean result;
+    int count;
+    count = 0;
+    result = false;
+    for(c = 1; c < n; c++) {
       if (g[c][v] == -1) {
         count++;
-        if (count > n-r) {
+        if (count > n - r) {
           result = true;
           break;
         }
@@ -59,12 +62,13 @@ public class graph1 {
 
   // true if colour c available for some edge
   static boolean liveColour(int[][] g, int c, int r) {
-    int v; boolean result;
+    int v;
+    boolean result;
     result = false;
-    for(v = 0;v < r;v++) {
+    for(v = 0; v < r; v++) {
       if (g[c][v] == -1) {
-          result = true;
-          break;
+        result = true;
+        break;
       }
     }
     return result;
@@ -72,12 +76,13 @@ public class graph1 {
 
   // true if vertex v has an edge of colour c
   static boolean colouredWith(int[][] g, int c, int v, int r) {
-    int u; boolean result;
+    int u;
+    boolean result;
     result = false;
-    for(u = 0;u < r;u++) {
+    for(u = 0; u < r; u++) {
       if (g[c][u] == v) {
-          result = true;
-          break;
+        result = true;
+        break;
       }
     }
     return result;
@@ -85,20 +90,21 @@ public class graph1 {
 
   // true if edge uv has been coloured
   static boolean edgeColoured(int[][] g, int u, int v, int n) {
-    int c; boolean result;
+    int c;
+    boolean result;
     result = false;
-    for(c = 1;c < n;c++) {
+    for(c = 1; c < n; c++) {
       if (g[c][u] == v) {
-          result = true;
-          break;
+        result = true;
+        break;
       }
     }
     return result;
   }
 
   // random integer between a and b incl.
-  static int random(int a,int b) {
-    return a + new Double(Math.random()*(b-a+1)).intValue();
+  static int random(int a, int b) {
+    return a + new Double(Math.random()*(b - a + 1)).intValue();
   }
 
   //
@@ -143,8 +149,7 @@ public class graph1 {
     do {
       u = random(0, r - 1);
       v = random(0, r - 1);
-    }
-    while (!(u != v & !colouredWith(graph, c, u, r) & !colouredWith(graph, c, v, r)));
+    } while (!(u != v & !colouredWith(graph, c, u, r) & !colouredWith(graph, c, v, r)));
     if (!edgeColoured(graph, u, v, n)) {
       graph[c][u] = v;
       graph[c][v] = u;
@@ -181,8 +186,7 @@ public class graph1 {
       else
         h2(graph, r, n);
       count++;
-    }
-    while (!graphFull(graph, n, r));
+    } while (!graphFull(graph, n, r));
     return count;
   }
 
@@ -190,8 +194,7 @@ public class graph1 {
     int u, v, w, c1j, c1k, c2;
     do {
       u = random(0, r - 1);
-    }
-    while (!liveVertex(g2, u, n, r));
+    } while (!liveVertex(g2, u, n, r));
     do {
       c2 = random(1, n - 1);
     } while (!(liveColour(g2, c2, r) & !colouredWith(g2, c2, u, r)));
@@ -311,8 +314,8 @@ public class graph1 {
   }
 
   static void test_findRoomSquare() {
-    int n = 18;
-    int r = 18;
+    int n = 20;
+    int r = 20;
     // this is how many times we try the heuristics before stopping
     int count = 2000;
     // this is how many times we restart
