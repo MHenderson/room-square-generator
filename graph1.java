@@ -311,30 +311,35 @@ public class graph1 {
   }
 
   static void test_findRoomSquare() {
-    int n = 8;
-    int r = 8;
-    int count = 100;
+    int n = 18;
+    int r = 18;
+    // this is how many times we try the heuristics before stopping
+    int count = 2000;
+    // this is how many times we restart
+    int tries = 100;
     int[][] graph1 = new int[n][n];
     int[][] graph2 = new int[n][n];
     int[][][] R = new int[n][n][2];
-    initGraph(graph1);
-    oneFactorisation(graph1, n, r);
-    initGraph(graph2);
-    initRoomSquare(R);
 
-    for (int j = 0; j < count; j++) {
-      if (random(0, 1) == 0) {
-        oh1(graph1, graph2, R, n, r);
-      } else {
-        oh2(graph1, graph2, R, n, r);
-      }
-      if (graphFull(graph2, n, r)) {
-        System.err.println();
-        System.err.println("Got one. " + j +" iterations required.");
-        break;
+    for (int i = 0; i < tries; i++) {
+      initGraph(graph1);
+      oneFactorisation(graph1, n, r);
+      initGraph(graph2);
+      initRoomSquare(R);
+      for (int j = 0; j < count; j++) {
+        if (random(0, 1) == 0) {
+          oh1(graph1, graph2, R, n, r);
+        } else {
+          oh2(graph1, graph2, R, n, r);
+        }
+        if (graphFull(graph2, n, r)) {
+          System.err.println();
+          System.err.println("Got one. " + j +" iterations required.");
+          printRoomSquare(R);
+          break;
+        }
       }
     }
-    printRoomSquare(R);
   }
 
   public static void main (String[] args) {
