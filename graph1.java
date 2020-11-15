@@ -310,11 +310,39 @@ public class graph1 {
     printRoomSquare(R);
   }
 
+  static void test_findRoomSquare() {
+    int n = 4;
+    int r = 4;
+    int count = 10;
+    int[][] graph1 = new int[n][n];
+    int[][] graph2 = new int[n][n];
+    int[][][] R = new int[n][n][2];
+    initGraph(graph1);
+    oneFactorisation(graph1, n, r);
+    initGraph(graph2);
+    initRoomSquare(R);
+
+    for (int j = 0; j < count; j++) {
+      if (random(0, 1) == 0) {
+        oh1(graph1, graph2, R, n, r);
+      } else {
+        oh2(graph1, graph2, R, n, r);
+      }
+      if (graphFull(graph2, n, r)) {
+        System.err.println();
+        System.err.println("Got one. " + j +" iterations required.");
+        break;
+      }
+    }
+    printRoomSquare(R);
+  }
+
   public static void main (String[] args) {
     //test_initGraph();
     //test_h1();
     //test_oneFactorisation();
     //test_oh1();
-    test_oh2();
+    //test_oh2();
+    test_findRoomSquare();
   }
 }
