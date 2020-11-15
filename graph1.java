@@ -311,9 +311,9 @@ public class graph1 {
   }
 
   static void test_findRoomSquare() {
-    int n = 4;
-    int r = 4;
-    int count = 10;
+    int n = 8;
+    int r = 8;
+    int count = 100;
     int[][] graph1 = new int[n][n];
     int[][] graph2 = new int[n][n];
     int[][][] R = new int[n][n][2];
