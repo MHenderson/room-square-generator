@@ -119,33 +119,6 @@ public class graph1 {
     return a + new Double(Math.random()*(b - a + 1)).intValue();
   }
 
-  //
-  static void h1(int[][] graph) {
-    int u, v, c, w;
-    int n = graph.length;
-    int r = graph[0].length;
-    do {
-      u = random(0, r - 1);
-    } while (!liveVertex(graph, u));
-    do {
-      c = random(1, n - 1);
-    } while (!(liveColour(graph, c) & !colouredWith(graph, c, u)));
-    do {
-      v = random(0, r - 1);
-    } while (! (u != v & !edgeColoured(graph, u, v)));
-    if (! colouredWith(graph, c, v)) {
-      graph[c][u] = v;
-      graph[c][v] = u;
-    }
-    else {
-      w = graph[c][v];
-      graph[c][v] = -1;
-      graph[c][w] = -1;
-      graph[c][u] = v;
-      graph[c][v] = u;
-    }
-  }
-
   static int colourOf(int[][] g, int u, int v) {
     int n = g.length;
     for(int c = 1; c < n; c++) {
@@ -154,30 +127,6 @@ public class graph1 {
       }
     }
     return -1;
-  }
-
-  static void h2(int[][] graph) {
-    int u, v, c, d;
-    int n = graph.length;
-    int r = graph[0].length;
-    do {
-      c = random(1, n - 1);
-    } while (!liveColour(graph, c));
-    do {
-      u = random(0, r - 1);
-      v = random(0, r - 1);
-    } while (!(u != v & !colouredWith(graph, c, u) & !colouredWith(graph, c, v)));
-    if (!edgeColoured(graph, u, v)) {
-      graph[c][u] = v;
-      graph[c][v] = u;
-    }
-    else {
-      d = colourOf(graph, u, v);
-      graph[d][u] = -1;
-      graph[d][v] = -1;
-      graph[c][u] = v;
-      graph[c][v] = u;
-    }
   }
 
   //
@@ -195,94 +144,6 @@ public class graph1 {
       }
     }
     return result;
-  }
-
-  static int oneFactorisation(int[][] graph) {
-    int count = 0;
-    int n = graph.length;
-    int r = graph[0].length;
-    do {
-      if (random(0, 1) == 0)
-        h1(graph);
-      else
-        h2(graph);
-      count++;
-    } while (!graphFull(graph));
-    return count;
-  }
-
-  static void oh1(int[][] g1, int[][] g2, int[][][] R) {
-    int u, v, w, c1j, c1k, c2;
-    int n = g1.length;
-    int r = g1[0].length;
-    do {
-      u = random(0, r - 1);
-    } while (!liveVertex(g2, u));
-    do {
-      c2 = random(1, n - 1);
-    } while (!(liveColour(g2, c2) & !colouredWith(g2, c2, u)));
-    do {
-      v = random(0, r - 1);
-    } while (! (u != v & !edgeColoured(g2, u, v)));
-
-    c1j = colourOf(g1, u, v);
-
-    if (R[c1j][c2][0] != -1) return;
-
-    if (! colouredWith(g2, c2, v)) {
-        g2[c2][u] = v;
-        g2[c2][v] = u;
-        R[c1j][c2][0] = u;
-        R[c1j][c2][1] = v;
-    }
-    else {
-        w = g2[c2][v];
-        g2[c2][v] = -1;
-        g2[c2][w] = -1;
-        g2[c2][u] = v;
-        g2[c2][v] = u;
-        R[c1j][c2][0] = u;
-        R[c1j][c2][1] = v;
-        c1k = colourOf(g1, w, v);
-        R[c1k][c2][0] = -1;
-        R[c1k][c2][1] = -1;
-    }
-  }
-
-  static void oh2(int[][] g1, int[][] g2, int[][][] R) {
-    int u,v,c1j,c2i,c2k;
-    int n = g1.length;
-    int r = g1[0].length;
-    do {
-      c2i = random(1, n - 1);
-    } while (!liveColour(g2, c2i));
-    do {
-      u = random(0, r - 1);
-      v = random(0, r - 1);
-    }
-    while (!(u != v & !colouredWith(g2, c2i, u) & !colouredWith(g2, c2i, v)));
-
-    c1j = colourOf(g1, u, v);
-
-    if (R[c1j][c2i][0] != -1) return;
-
-    if (! edgeColoured(g2, u, v)) {
-      g2[c2i][u] = v;
-      g2[c2i][v] = u;
-      R[c1j][c2i][0] = u;
-      R[c1j][c2i][1] = v;
-    }
-    else {
-      c2k = colourOf(g2, u, v);
-      g2[c2k][u] = -1;
-      g2[c2k][v] = -1;
-      g2[c2i][u] = v;
-      g2[c2i][v] = u;
-      R[c1j][c2i][0] = u;
-      R[c1j][c2i][1] = v;
-      R[c1j][c2k][0] = -1;
-      R[c1j][c2k][1] = -1;
-    }
   }
 
 }
