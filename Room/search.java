@@ -14,9 +14,9 @@ public class search {
     int[][][] R = new int[n][n][2];
 
     for (int i = 0; i < tries; i++) {
-      Graph.init(g);
+      graph.init(g);
       algorithm.oneFactorisation(g);
-      Graph.init(h);
+      graph.init(h);
       square.init(R);
       algorithm.hillClimbing(g, h, R, count);
     }

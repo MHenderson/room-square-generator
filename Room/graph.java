@@ -3,7 +3,7 @@ package Room;
 /*! \brief Generate Room squares
  *         
  */
-public class Graph {
+public class graph {
 
   /*! \brief print a g
    *         
