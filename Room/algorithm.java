@@ -131,12 +131,13 @@ public class algorithm {
     }
   }
 
-  public static int oneFactorisation(int[][] g) {
+  public static int oneFactorisation(int[][] g, java.util.Random rng) {
     int count = 0;
     int n = g.length;
     int r = g[0].length;
     do {
-      if (random(0, 1) == 0)
+      int rr = rng.nextInt(2);
+      if (rr == 0)
         h1(g);
       else
         h2(g);
@@ -145,9 +146,10 @@ public class algorithm {
     return count;
   }
 
-  public static void hillClimbing(int[][] g, int[][] h, int[][][] R, int iterations) {
+  public static void hillClimbing(int[][] g, int[][] h, int[][][] R, int iterations, java.util.Random rng) {
     for (int j = 0; j < iterations; j++) {
-      if (random(0, 1) == 0) {
+      int rr = rng.nextInt(2);
+      if (rr == 0) {
         oh1(g, h, R);
       } else {
         oh2(g, h, R);
