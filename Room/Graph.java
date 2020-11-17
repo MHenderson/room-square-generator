@@ -3,49 +3,26 @@ package Room;
 /*! \brief Generate Room squares
  *         
  */
-public class graph1 {
+public class Graph {
 
-  /*! \brief print a graph
+  /*! \brief print a g
    *         
    */
-  static void printGraph(int[][] graph) {
-    for(int i = 0; i < graph.length; i++) {
+  static void printGraph(int[][] g) {
+    for(int i = 0; i < g.length; i++) {
       System.out.print("<");
-      for(int j = 0; j < graph[i].length; j++) {
-        System.out.print(((graph[i][j] < 0)?"-":String.valueOf(graph[i][j])) + ((j == graph[i].length - 1)?"":","));
+      for(int j = 0; j < g[i].length; j++) {
+        System.out.print(((g[i][j] < 0)?"-":String.valueOf(g[i][j])) + ((j == g[i].length - 1)?"":","));
       }
       System.out.println(">");
     }
   }
 
-  static void initGraph(int[][] graph) {
-    for(int i = 1;i < graph.length; i++) {
-      for(int j = 0; j < graph[i].length; j++) {
-        graph[i][j] = -1;
+  static void initGraph(int[][] g) {
+    for(int i = 1;i < g.length; i++) {
+      for(int j = 0; j < g[i].length; j++) {
+        g[i][j] = -1;
       }
-    }
-  }
-
-  static void initRoomSquare(int[][][] R) {
-    for(int i = 1;i < R.length; i++) {
-      for(int j = 1; j < R[i].length; j++) {
-        R[i][j][0] = -1;
-        R[i][j][1] = -1;
-      }
-    }
-  }
-
-  static void printRoomSquare(int[][][] R) {
-    for(int i = 1; i < R.length; i++) {
-      System.out.print("<");
-      for(int j = 1; j < R[i].length; j++) {
-        System.out.print("<");
-        System.out.print(((R[i][j][0] < 0)?"-":String.valueOf(R[i][j][0])));
-        System.out.print(",");
-        System.out.print(((R[i][j][1] < 0)?"-":String.valueOf(R[i][j][1])));
-        System.out.print(">");
-      }
-      System.out.println(">");
     }
   }
 
@@ -112,11 +89,6 @@ public class graph1 {
       }
     }
     return result;
-  }
-
-  // random integer between a and b incl.
-  static int random(int a, int b) {
-    return a + new Double(Math.random()*(b - a + 1)).intValue();
   }
 
   static int colourOf(int[][] g, int u, int v) {

@@ -1,13 +1,13 @@
-search: Room/search.class Room/algorithm.class Room/graph1.class
+search: Room/search.class Room/algorithm.class Room/Graph.class
 	java Room.search 24 2000 100
 
-test: Room/graph1.class Room/test.class
+test: Room/Graph.class Room/test.class
 	java Room.test
 
 Room/algorithm.class: Room/algorithm.java
 	javac $<
 
-Room/graph1.class: Room/graph1.java
+Room/Graph.class: Room/Graph.java
 	javac $<
 
 Room/test.class: Room/test.java

@@ -2,53 +2,79 @@ package Room;
 
 public class algorithm {
 
-  static void h1(int[][] graph) {
-    int u, v, c, w;
-    int n = graph.length;
-    int r = graph[0].length;
-    do {
-      u = graph1.random(0, r - 1);
-    } while (!graph1.liveVertex(graph, u));
-    do {
-      c = graph1.random(1, n - 1);
-    } while (!(graph1.liveColour(graph, c) & !graph1.colouredWith(graph, c, u)));
-    do {
-      v = graph1.random(0, r - 1);
-    } while (! (u != v & !graph1.edgeColoured(graph, u, v)));
-    if (! graph1.colouredWith(graph, c, v)) {
-      graph[c][u] = v;
-      graph[c][v] = u;
-    }
-    else {
-      w = graph[c][v];
-      graph[c][v] = -1;
-      graph[c][w] = -1;
-      graph[c][u] = v;
-      graph[c][v] = u;
+  static int random(int a, int b) {
+    int value = a + new Double(Math.random()*(b - a + 1)).intValue();
+    return(value);
+  }
+
+  static void initRoomSquare(int[][][] R) {
+    for(int i = 1;i < R.length; i++) {
+      for(int j = 1; j < R[i].length; j++) {
+        R[i][j][0] = -1;
+        R[i][j][1] = -1;
+      }
     }
   }
 
-  static void h2(int[][] graph) {
-    int u, v, c, d;
-    int n = graph.length;
-    int r = graph[0].length;
+  static void printRoomSquare(int[][][] R) {
+    for(int i = 1; i < R.length; i++) {
+      for(int j = 1; j < R[i].length; j++) {
+        System.out.print("|");
+        System.out.print(((R[i][j][0] < 0)?"-":String.valueOf(R[i][j][0])));
+        System.out.print(",");
+        System.out.print(((R[i][j][1] < 0)?"-":String.valueOf(R[i][j][1])));
+      }
+      System.out.println("|");
+    }
+  }
+
+  static void h1(int[][] g) {
+    int u, v, c, w;
+    int n = g.length;
+    int r = g[0].length;
     do {
-      c = graph1.random(1, n - 1);
-    } while (!graph1.liveColour(graph, c));
+      u = random(0, r - 1);
+    } while (!Graph.liveVertex(g, u));
     do {
-      u = graph1.random(0, r - 1);
-      v = graph1.random(0, r - 1);
-    } while (!(u != v & !graph1.colouredWith(graph, c, u) & !graph1.colouredWith(graph, c, v)));
-    if (!graph1.edgeColoured(graph, u, v)) {
-      graph[c][u] = v;
-      graph[c][v] = u;
+      c = random(1, n - 1);
+    } while (!(Graph.liveColour(g, c) & !Graph.colouredWith(g, c, u)));
+    do {
+      v = random(0, r - 1);
+    } while (!(u != v & !Graph.edgeColoured(g, u, v)));
+    if (!Graph.colouredWith(g, c, v)) {
+      g[c][u] = v;
+      g[c][v] = u;
     }
     else {
-      d = graph1.colourOf(graph, u, v);
-      graph[d][u] = -1;
-      graph[d][v] = -1;
-      graph[c][u] = v;
-      graph[c][v] = u;
+      w = g[c][v];
+      g[c][v] = -1;
+      g[c][w] = -1;
+      g[c][u] = v;
+      g[c][v] = u;
+    }
+  }
+
+  static void h2(int[][] g) {
+    int u, v, c, d;
+    int n = g.length;
+    int r = g[0].length;
+    do {
+      c = random(1, n - 1);
+    } while (!Graph.liveColour(g, c));
+    do {
+      u = random(0, r - 1);
+      v = random(0, r - 1);
+    } while (!(u != v & !Graph.colouredWith(g, c, u) & !Graph.colouredWith(g, c, v)));
+    if (!Graph.edgeColoured(g, u, v)) {
+      g[c][u] = v;
+      g[c][v] = u;
+    }
+    else {
+      d = Graph.colourOf(g, u, v);
+      g[d][u] = -1;
+      g[d][v] = -1;
+      g[c][u] = v;
+      g[c][v] = u;
     }
   }
 
@@ -57,20 +83,20 @@ public class algorithm {
     int n = g1.length;
     int r = g1[0].length;
     do {
-      u = graph1.random(0, r - 1);
-    } while (!graph1.liveVertex(g2, u));
+      u = random(0, r - 1);
+    } while (!Graph.liveVertex(g2, u));
     do {
-      c2 = graph1.random(1, n - 1);
-    } while (!(graph1.liveColour(g2, c2) & !graph1.colouredWith(g2, c2, u)));
+      c2 = random(1, n - 1);
+    } while (!(Graph.liveColour(g2, c2) & !Graph.colouredWith(g2, c2, u)));
     do {
-      v = graph1.random(0, r - 1);
-    } while (! (u != v & !graph1.edgeColoured(g2, u, v)));
+      v = random(0, r - 1);
+    } while (! (u != v & !Graph.edgeColoured(g2, u, v)));
 
-    c1j = graph1.colourOf(g1, u, v);
+    c1j = Graph.colourOf(g1, u, v);
 
     if (R[c1j][c2][0] != -1) return;
 
-    if (! graph1.colouredWith(g2, c2, v)) {
+    if (!Graph.colouredWith(g2, c2, v)) {
         g2[c2][u] = v;
         g2[c2][v] = u;
         R[c1j][c2][0] = u;
@@ -84,7 +110,7 @@ public class algorithm {
         g2[c2][v] = u;
         R[c1j][c2][0] = u;
         R[c1j][c2][1] = v;
-        c1k = graph1.colourOf(g1, w, v);
+        c1k = Graph.colourOf(g1, w, v);
         R[c1k][c2][0] = -1;
         R[c1k][c2][1] = -1;
     }
@@ -95,26 +121,26 @@ public class algorithm {
     int n = g1.length;
     int r = g1[0].length;
     do {
-      c2i = graph1.random(1, n - 1);
-    } while (!graph1.liveColour(g2, c2i));
+      c2i = random(1, n - 1);
+    } while (!Graph.liveColour(g2, c2i));
     do {
-      u = graph1.random(0, r - 1);
-      v = graph1.random(0, r - 1);
+      u = random(0, r - 1);
+      v = random(0, r - 1);
     }
-    while (!(u != v & !graph1.colouredWith(g2, c2i, u) & !graph1.colouredWith(g2, c2i, v)));
+    while (!(u != v & !Graph.colouredWith(g2, c2i, u) & !Graph.colouredWith(g2, c2i, v)));
 
-    c1j = graph1.colourOf(g1, u, v);
+    c1j = Graph.colourOf(g1, u, v);
 
     if (R[c1j][c2i][0] != -1) return;
 
-    if (! graph1.edgeColoured(g2, u, v)) {
+    if (!Graph.edgeColoured(g2, u, v)) {
       g2[c2i][u] = v;
       g2[c2i][v] = u;
       R[c1j][c2i][0] = u;
       R[c1j][c2i][1] = v;
     }
     else {
-      c2k = graph1.colourOf(g2, u, v);
+      c2k = Graph.colourOf(g2, u, v);
       g2[c2k][u] = -1;
       g2[c2k][v] = -1;
       g2[c2i][u] = v;
@@ -126,31 +152,31 @@ public class algorithm {
     }
   }
 
-  public static int oneFactorisation(int[][] graph) {
+  public static int oneFactorisation(int[][] g) {
     int count = 0;
-    int n = graph.length;
-    int r = graph[0].length;
+    int n = g.length;
+    int r = g[0].length;
     do {
-      if (graph1.random(0, 1) == 0)
-        h1(graph);
+      if (random(0, 1) == 0)
+        h1(g);
       else
-        h2(graph);
+        h2(g);
       count++;
-    } while (!graph1.graphFull(graph));
+    } while (!Graph.graphFull(g));
     return count;
   }
 
   public static void hillClimbing(int[][] g, int[][] h, int[][][] R, int iterations) {
     for (int j = 0; j < iterations; j++) {
-      if (graph1.random(0, 1) == 0) {
+      if (random(0, 1) == 0) {
         oh1(g, h, R);
       } else {
         oh2(g, h, R);
       }
-      if (graph1.graphFull(h)) {
+      if (Graph.graphFull(h)) {
         System.err.println();
         System.err.println("Got one. " + j +" iterations required.");
-        graph1.printRoomSquare(R);
+        printRoomSquare(R);
         break;
       }
     }
