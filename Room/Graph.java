@@ -8,7 +8,7 @@ public class Graph {
   /*! \brief print a g
    *         
    */
-  static void printGraph(int[][] g) {
+  static void print(int[][] g) {
     for(int i = 0; i < g.length; i++) {
       System.out.print("<");
       for(int j = 0; j < g[i].length; j++) {
@@ -18,7 +18,7 @@ public class Graph {
     }
   }
 
-  static void initGraph(int[][] g) {
+  static void init(int[][] g) {
     for(int i = 1;i < g.length; i++) {
       for(int j = 0; j < g[i].length; j++) {
         g[i][j] = -1;
@@ -102,7 +102,7 @@ public class Graph {
   }
 
   //
-  static boolean graphFull(int[][] g) {
+  static boolean isFull(int[][] g) {
     int c;
     boolean result;
     int v;

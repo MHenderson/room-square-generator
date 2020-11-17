@@ -4,26 +4,26 @@ public class test {
   //
   static void test_initGraph() {
     int[][] g = new int[3][2];
-    Graph.printGraph(g);
-    Graph.initGraph(g);
-    Graph.printGraph(g);
+    Graph.print(g);
+    Graph.init(g);
+    Graph.print(g);
   }
 
   static void test_h1() {
     int[][] g = new int[4][4];
-    Graph.initGraph(g);
-    Graph.printGraph(g);
+    Graph.init(g);
+    Graph.print(g);
     algorithm.h1(g);
-    Graph.printGraph(g);
+    Graph.print(g);
     algorithm.h2(g);
-    Graph.printGraph(g);
+    Graph.print(g);
   }
 
   static void test_oneFactorisation() {
     int[][] g = new int[4][4];
-    Graph.initGraph(g);
+    Graph.init(g);
     algorithm.oneFactorisation(g);
-    Graph.printGraph(g);
+    Graph.print(g);
   }
 
   static void test_oh1() {
@@ -32,12 +32,12 @@ public class test {
     int[][] g = new int[n][n];
     int[][] h = new int[n][n];
     int[][][] R = new int[n][n][2];
-    Graph.initGraph(g);
+    Graph.init(g);
     algorithm.oneFactorisation(g);
-    Graph.initGraph(h);
-    algorithm.initRoomSquare(R);
+    Graph.init(h);
+    square.init(R);
     algorithm.oh1(g, h, R);
-    algorithm.printRoomSquare(R);
+    square.print(R);
   }
 
   static void test_oh2() {
@@ -46,20 +46,20 @@ public class test {
     int[][] g = new int[n][n];
     int[][] h = new int[n][n];
     int[][][] R = new int[n][n][2];
-    Graph.initGraph(g);
+    Graph.init(g);
     algorithm.oneFactorisation(g);
-    Graph.initGraph(h);
-    algorithm.initRoomSquare(R);
+    Graph.init(h);
+    square.init(R);
     algorithm.oh2(g, h, R);
-    algorithm.printRoomSquare(R);
+    square.print(R);
   }
 
   public static void main (String[] args) {
-//    test_initGraph();
+    test_initGraph();
     test_h1();
-//   test_oneFactorisation();
-//    test_oh1();
-//    test_oh2();
+    test_oneFactorisation();
+    test_oh1();
+    test_oh2();
   }
 
 }

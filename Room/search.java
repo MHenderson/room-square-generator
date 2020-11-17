@@ -14,10 +14,10 @@ public class search {
     int[][][] R = new int[n][n][2];
 
     for (int i = 0; i < tries; i++) {
-      Graph.initGraph(g);
+      Graph.init(g);
       algorithm.oneFactorisation(g);
-      Graph.initGraph(h);
-      algorithm.initRoomSquare(R);
+      Graph.init(h);
+      square.init(R);
       algorithm.hillClimbing(g, h, R, count);
     }
 

@@ -7,27 +7,6 @@ public class algorithm {
     return(value);
   }
 
-  static void initRoomSquare(int[][][] R) {
-    for(int i = 1;i < R.length; i++) {
-      for(int j = 1; j < R[i].length; j++) {
-        R[i][j][0] = -1;
-        R[i][j][1] = -1;
-      }
-    }
-  }
-
-  static void printRoomSquare(int[][][] R) {
-    for(int i = 1; i < R.length; i++) {
-      for(int j = 1; j < R[i].length; j++) {
-        System.out.print("|");
-        System.out.print(((R[i][j][0] < 0)?"-":String.valueOf(R[i][j][0])));
-        System.out.print(",");
-        System.out.print(((R[i][j][1] < 0)?"-":String.valueOf(R[i][j][1])));
-      }
-      System.out.println("|");
-    }
-  }
-
   static void h1(int[][] g) {
     int u, v, c, w;
     int n = g.length;
@@ -162,7 +141,7 @@ public class algorithm {
       else
         h2(g);
       count++;
-    } while (!Graph.graphFull(g));
+    } while (!Graph.isFull(g));
     return count;
   }
 
@@ -173,10 +152,10 @@ public class algorithm {
       } else {
         oh2(g, h, R);
       }
-      if (Graph.graphFull(h)) {
+      if (Graph.isFull(h)) {
         System.err.println();
         System.err.println("Got one. " + j +" iterations required.");
-        printRoomSquare(R);
+        square.print(R);
         break;
       }
     }
