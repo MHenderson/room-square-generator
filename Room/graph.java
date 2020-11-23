@@ -1,14 +1,19 @@
 package Room;
 
-/*! \brief Generate Room squares
- *         
- */
 public class graph {
 
-  /*! \brief print a g
-   *         
-   */
-  static void print(int[][] g) {
+  int[][] g;
+
+  public graph(int n, int m) {
+    g = new int[n][m];
+    for(int i = 1; i < n; i++) {
+      for(int j = 0; j < m; j++) {
+        g[i][j] = -1;
+      }
+    }
+  }
+
+  public void print() {
     for(int i = 0; i < g.length; i++) {
       System.out.print("<");
       for(int j = 0; j < g[i].length; j++) {
@@ -18,16 +23,19 @@ public class graph {
     }
   }
 
-  static void init(int[][] g) {
-    for(int i = 1;i < g.length; i++) {
-      for(int j = 0; j < g[i].length; j++) {
-        g[i][j] = -1;
-      }
-    }
+  public int get(int i, int j) {
+    return g[i][j];
   }
 
+  public void set(int i, int j, int k) {
+    g[i][j] = k;
+  }
+
+  public int n() { return g.length; }
+  public int m() { return g[0].length; }
+
   // true if vertex v has incident uncoloured edge
-  static boolean liveVertex(int[][] g, int v) {
+  public boolean liveVertex(int v) {
     int c;
     boolean result;
     int count;
@@ -47,7 +55,7 @@ public class graph {
  }
 
   // true if colour c available for some edge
-  static boolean liveColour(int[][] g, int c) {
+  public boolean liveColour(int c) {
     int v;
     boolean result;
     int r = g[0].length;
@@ -62,7 +70,7 @@ public class graph {
   }
 
   // true if vertex v has an edge of colour c
-  static boolean colouredWith(int[][] g, int c, int v) {
+  public boolean colouredWith(int c, int v) {
     int u;
     boolean result;
     int r = g[0].length;
@@ -77,7 +85,7 @@ public class graph {
   }
 
   // true if edge uv has been coloured
-  static boolean edgeColoured(int[][] g, int u, int v) {
+  public boolean edgeColoured(int u, int v) {
     int c;
     boolean result;
     int n = g.length;
@@ -91,7 +99,7 @@ public class graph {
     return result;
   }
 
-  static int colourOf(int[][] g, int u, int v) {
+  public int colourOf(int u, int v) {
     int n = g.length;
     for(int c = 1; c < n; c++) {
       if (g[c][u] == v) {
@@ -102,7 +110,7 @@ public class graph {
   }
 
   //
-  static boolean isFull(int[][] g) {
+  public boolean isFull() {
     int c;
     boolean result;
     int v;
@@ -110,7 +118,7 @@ public class graph {
     int n = g.length;
     int r = g[0].length;
     for(v = 0; v < r; v++) {
-      if (liveVertex(g, v)) {
+      if (liveVertex(v)) {
         result = false;
         break;
       }

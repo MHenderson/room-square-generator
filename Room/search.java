@@ -11,16 +11,12 @@ public class search {
     int count = Integer.parseInt(args[1]);
     int tries = Integer.parseInt(args[2]);
 
-    int[][] g = new int[n][n];
-    int[][] h = new int[n][n];
-
-
     Random randnum = new Random(42);
 
     for (int i = 0; i < tries; i++) {
-      graph.init(g);
+      graph g = new graph(n, n);
       algorithm.oneFactorisation(g, randnum);
-      graph.init(h);
+      graph h = new graph(n, n);
       roomSquare R = new roomSquare(n);
       algorithm.hillClimbing(g, h, R, count, randnum);
     }

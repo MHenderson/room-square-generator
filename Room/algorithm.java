@@ -7,123 +7,123 @@ public class algorithm {
     return(value);
   }
 
-  static void h1(int[][] g, java.util.Random rng) {
+  static void h1(graph g, java.util.Random rng) {
     int u, v, c, w;
-    int n = g.length;
-    int r = g[0].length;
+    int n = g.n();
+    int r = g.m();
     do {
       u = rng.nextInt(r);
-    } while (!graph.liveVertex(g, u));
+    } while (!g.liveVertex(u));
     do {
       c = rng.nextInt(n - 1) + 1;
-    } while (!(graph.liveColour(g, c) & !graph.colouredWith(g, c, u)));
+    } while (!(g.liveColour(c) & !g.colouredWith(c, u)));
     do {
       v = rng.nextInt(r);
-    } while (!(u != v & !graph.edgeColoured(g, u, v)));
-    if (!graph.colouredWith(g, c, v)) {
-      g[c][u] = v;
-      g[c][v] = u;
+    } while (!(u != v & !g.edgeColoured(u, v)));
+    if (!g.colouredWith(c, v)) {
+      g.set(c, u, v);
+      g.set(c, v, u);
     }
     else {
-      w = g[c][v];
-      g[c][v] = -1;
-      g[c][w] = -1;
-      g[c][u] = v;
-      g[c][v] = u;
+      w = g.get(c, v);
+      g.set(c, v, -1);
+      g.set(c, w, -1);
+      g.set(c, u, v);
+      g.set(c, v, u);
     }
   }
 
-  static void h2(int[][] g, java.util.Random rng) {
+  static void h2(graph g, java.util.Random rng) {
     int u, v, c, d;
-    int n = g.length;
-    int r = g[0].length;
+    int n = g.n();
+    int r = g.m();
     do {
       c = rng.nextInt(n - 1) + 1;
-    } while (!graph.liveColour(g, c));
+    } while (!g.liveColour(c));
     do {
       u = rng.nextInt(r);
       v = rng.nextInt(r);
-    } while (!(u != v & !graph.colouredWith(g, c, u) & !graph.colouredWith(g, c, v)));
-    if (!graph.edgeColoured(g, u, v)) {
-      g[c][u] = v;
-      g[c][v] = u;
+    } while (!(u != v & !g.colouredWith(c, u) & !g.colouredWith(c, v)));
+    if (!g.edgeColoured(u, v)) {
+      g.set(c, u, v);
+      g.set(c, v, u);
     }
     else {
-      d = graph.colourOf(g, u, v);
-      g[d][u] = -1;
-      g[d][v] = -1;
-      g[c][u] = v;
-      g[c][v] = u;
+      d = g.colourOf(u, v);
+      g.set(d, u, -1);
+      g.set(d, v, -1);
+      g.set(c, u, v);
+      g.set(c, v, u);
     }
   }
 
-  static void oh1(int[][] g1, int[][] g2, roomSquare R, java.util.Random rng) {
+  static void oh1(graph g1, graph g2, roomSquare R, java.util.Random rng) {
     int u, v, w, c1j, c1k, c2;
-    int n = g1.length;
-    int r = g1[0].length;
+    int n = g1.n();
+    int r = g1.m();
     do {
       u = rng.nextInt(r);;
-    } while (!graph.liveVertex(g2, u));
+    } while (!g2.liveVertex(u));
     do {
       c2 = rng.nextInt(n - 1) + 1;
-    } while (!(graph.liveColour(g2, c2) & !graph.colouredWith(g2, c2, u)));
+    } while (!(g2.liveColour(c2) & !g2.colouredWith(c2, u)));
     do {
       v = rng.nextInt(r);
-    } while (! (u != v & !graph.edgeColoured(g2, u, v)));
+    } while (! (u != v & !g2.edgeColoured(u, v)));
 
-    c1j = graph.colourOf(g1, u, v);
+    c1j = g1.colourOf(u, v);
 
     if (R.getLeft(c1j, c2) != -1) return;
 
-    if (!graph.colouredWith(g2, c2, v)) {
-        g2[c2][u] = v;
-        g2[c2][v] = u;
+    if (!g2.colouredWith(c2, v)) {
+        g2.set(c2, u, v);
+        g2.set(c2, v, u);
         R.setLeft(c1j, c2, u);
         R.setRight(c1j, c2, v);
     }
     else {
-        w = g2[c2][v];
-        g2[c2][v] = -1;
-        g2[c2][w] = -1;
-        g2[c2][u] = v;
-        g2[c2][v] = u;
+        w = g2.get(c2, v);
+        g2.set(c2, v, -1);
+        g2.set(c2, w, -1);
+        g2.set(c2, u, v);
+        g2.set(c2, v, u);
         R.setLeft(c1j, c2, u);
         R.setRight(c1j, c2, v);
-        c1k = graph.colourOf(g1, w, v);
-        R.setLeft(c1k,c2,-1);
-        R.setRight(c1k,c2,-1);
+        c1k = g1.colourOf(w, v);
+        R.setLeft(c1k, c2, -1);
+        R.setRight(c1k, c2, -1);
     }
   }
 
-  static void oh2(int[][] g1, int[][] g2, roomSquare R, java.util.Random rng) {
+  static void oh2(graph g1, graph g2, roomSquare R, java.util.Random rng) {
     int u, v, c1j, c2i, c2k;
-    int n = g1.length;
-    int r = g1[0].length;
+    int n = g1.n();
+    int r = g1.m();
     do {
       c2i = rng.nextInt(n - 1) + 1;
-    } while (!graph.liveColour(g2, c2i));
+    } while (!g2.liveColour(c2i));
     do {
       u = rng.nextInt(r);
       v = rng.nextInt(r);
     }
-    while (!(u != v & !graph.colouredWith(g2, c2i, u) & !graph.colouredWith(g2, c2i, v)));
+    while (!(u != v & !g2.colouredWith(c2i, u) & !g2.colouredWith(c2i, v)));
 
-    c1j = graph.colourOf(g1, u, v);
+    c1j = g1.colourOf(u, v);
 
     if (R.getLeft(c1j, c2i) != -1) return;
 
-    if (!graph.edgeColoured(g2, u, v)) {
-      g2[c2i][u] = v;
-      g2[c2i][v] = u;
+    if (!g2.edgeColoured(u, v)) {
+      g2.set(c2i, u, v);
+      g2.set(c2i, v, u);
       R.setLeft(c1j, c2i, u);
       R.setRight(c1j, c2i, v);
     }
     else {
-      c2k = graph.colourOf(g2, u, v);
-      g2[c2k][u] = -1;
-      g2[c2k][v] = -1;
-      g2[c2i][u] = v;
-      g2[c2i][v] = u;
+      c2k = g2.colourOf(u, v);
+      g2.set(c2k, u, -1);
+      g2.set(c2k, v, -1);
+      g2.set(c2i, u, v);
+      g2.set(c2i, v, u);
       R.setLeft(c1j, c2i, u);
       R.setRight(c1j, c2i, v);
       R.setLeft(c1j, c2k, -1);
@@ -131,10 +131,10 @@ public class algorithm {
     }
   }
 
-  public static int oneFactorisation(int[][] g, java.util.Random rng) {
+  public static int oneFactorisation(graph g, java.util.Random rng) {
     int count = 0;
-    int n = g.length;
-    int r = g[0].length;
+    int n = g.n();
+    int r = g.m();
     do {
       int rr = rng.nextInt(2);
       if (rr == 0)
@@ -142,11 +142,11 @@ public class algorithm {
       else
         h2(g, rng);
       count++;
-    } while (!graph.isFull(g));
+    } while (!g.isFull());
     return count;
   }
 
-  public static void hillClimbing(int[][] g, int[][] h, roomSquare R, int iterations, java.util.Random rng) {
+  public static void hillClimbing(graph g, graph h, roomSquare R, int iterations, java.util.Random rng) {
     for (int j = 0; j < iterations; j++) {
       int rr = rng.nextInt(2);
       if (rr == 0) {
@@ -154,7 +154,7 @@ public class algorithm {
       } else {
         oh2(g, h, R, rng);
       }
-      if (graph.isFull(h)) {
+      if (h.isFull()) {
         System.err.println();
         System.err.println("Got one. " + j +" iterations required.");
         R.print();
