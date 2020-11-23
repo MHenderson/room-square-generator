@@ -2,11 +2,6 @@ package Room;
 
 public class algorithm {
 
-  static int random(int a, int b) {
-    int value = a + new Double(Math.random()*(b - a + 1)).intValue();
-    return(value);
-  }
-
   static void h1(graph g, java.util.Random rng) {
     int u, v, c, w;
     int n = g.n();
