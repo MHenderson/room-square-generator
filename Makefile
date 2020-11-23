@@ -1,7 +1,7 @@
-search: Room/search.class Room/algorithm.class Room/graph.class Room/square.class
+search: Room/search.class Room/algorithm.class Room/graph.class Room/roomSquare.class
 	java Room.search 8 1000 100
 
-test: Room/graph.class Room/test.class
+test: Room/test.class Room/roomSquare.class
 	java Room.test
 
 Room/algorithm.class: Room/algorithm.java
@@ -16,7 +16,7 @@ Room/test.class: Room/test.java
 Room/search.class: Room/search.java
 	javac $<
 
-Room/square.class: Room/square.java
+Room/roomSquare.class: Room/roomSquare.java
 	javac $<
 
 clean:

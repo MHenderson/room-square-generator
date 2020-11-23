@@ -13,7 +13,7 @@ public class search {
 
     int[][] g = new int[n][n];
     int[][] h = new int[n][n];
-    int[][][] R = new int[n][n][2];
+
 
     Random randnum = new Random(42);
 
@@ -21,7 +21,7 @@ public class search {
       graph.init(g);
       algorithm.oneFactorisation(g, randnum);
       graph.init(h);
-      square.init(R);
+      roomSquare R = new roomSquare(n);
       algorithm.hillClimbing(g, h, R, count, randnum);
     }
 
