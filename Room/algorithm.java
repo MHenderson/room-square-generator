@@ -16,15 +16,13 @@ public class algorithm {
       v = rng.nextInt(r);
     } while (!(u != v & !g.edgeColoured(u, v)));
     if (!g.colouredWith(c, v)) {
-      g.set(c, u, v);
-      g.set(c, v, u);
+      g.colourEdge(u, v, c);
     }
     else {
       w = g.get(c, v);
       g.set(c, v, -1);
       g.set(c, w, -1);
-      g.set(c, u, v);
-      g.set(c, v, u);
+      g.colourEdge(u, v, c);
     }
   }
 
@@ -40,15 +38,13 @@ public class algorithm {
       v = rng.nextInt(r);
     } while (!(u != v & !g.colouredWith(c, u) & !g.colouredWith(c, v)));
     if (!g.edgeColoured(u, v)) {
-      g.set(c, u, v);
-      g.set(c, v, u);
+      g.colourEdge(u, v, c);
     }
     else {
       d = g.colourOf(u, v);
       g.set(d, u, -1);
       g.set(d, v, -1);
-      g.set(c, u, v);
-      g.set(c, v, u);
+      g.colourEdge(u, v, c);
     }
   }
 
@@ -71,8 +67,7 @@ public class algorithm {
     if (R.getLeft(c1j, c2) != -1) return;
 
     if (!g2.colouredWith(c2, v)) {
-        g2.set(c2, u, v);
-        g2.set(c2, v, u);
+        g2.colourEdge(u, v, c2);
         R.setLeft(c1j, c2, u);
         R.setRight(c1j, c2, v);
     }
@@ -80,8 +75,7 @@ public class algorithm {
         w = g2.get(c2, v);
         g2.set(c2, v, -1);
         g2.set(c2, w, -1);
-        g2.set(c2, u, v);
-        g2.set(c2, v, u);
+        g2.colourEdge(u, v, c2);
         R.setLeft(c1j, c2, u);
         R.setRight(c1j, c2, v);
         c1k = g1.colourOf(w, v);
@@ -108,8 +102,7 @@ public class algorithm {
     if (R.getLeft(c1j, c2i) != -1) return;
 
     if (!g2.edgeColoured(u, v)) {
-      g2.set(c2i, u, v);
-      g2.set(c2i, v, u);
+      g2.colourEdge(u, v, c2i);
       R.setLeft(c1j, c2i, u);
       R.setRight(c1j, c2i, v);
     }
@@ -117,8 +110,7 @@ public class algorithm {
       c2k = g2.colourOf(u, v);
       g2.set(c2k, u, -1);
       g2.set(c2k, v, -1);
-      g2.set(c2i, u, v);
-      g2.set(c2i, v, u);
+      g2.colourEdge(u, v, c2i);
       R.setLeft(c1j, c2i, u);
       R.setRight(c1j, c2i, v);
       R.setLeft(c1j, c2k, -1);

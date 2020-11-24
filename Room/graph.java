@@ -31,6 +31,11 @@ public class graph {
     g[i][j] = k;
   }
 
+  public void colourEdge(int u, int v, int c) {
+    set(c, u, v);
+    set(c, v, u);
+  }
+
   public int n() { return g.length; }
   public int m() { return g[0].length; }
 
