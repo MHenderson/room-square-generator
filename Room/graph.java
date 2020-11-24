@@ -1,11 +1,15 @@
 package Room;
 
+import java.util.Random;
+
 public class graph {
 
   int[][] g;
+  Random rng;
 
-  public graph(int n, int m) {
+  public graph(int n, int m, Random randnum) {
     g = new int[n][m];
+    rng = randnum;
     for(int i = 1; i < n; i++) {
       for(int j = 0; j < m; j++) {
         g[i][j] = -1;
@@ -136,11 +140,11 @@ public class graph {
     return result;
   }
 
-  int randomColour(java.util.Random rng) {
+  int randomColour() {
     return rng.nextInt(n() - 1) + 1;
   }
 
-  int randomVertex(java.util.Random rng) {
+  int randomVertex() {
     return rng.nextInt(m());
   }
 

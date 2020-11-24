@@ -2,18 +2,18 @@ package Room;
 
 public class algorithm {
 
-  static void h1(graph g, java.util.Random rng) {
+  static void h1(graph g) {
     int u, v, c, w;
     int n = g.n();
     int r = g.m();
     do {
-      u = g.randomVertex(rng);
+      u = g.randomVertex();
     } while (!g.liveVertex(u));
     do {
-      c = g.randomColour(rng);
+      c = g.randomColour();
     } while (!(g.liveColour(c) & !g.colouredWith(c, u)));
     do {
-      v = g.randomVertex(rng);
+      v = g.randomVertex();
     } while (!(u != v & !g.edgeColoured(u, v)));
     if (!g.colouredWith(c, v)) {
       g.colourEdge(u, v, c);
@@ -25,16 +25,16 @@ public class algorithm {
     }
   }
 
-  static void h2(graph g, java.util.Random rng) {
+  static void h2(graph g) {
     int u, v, c, d;
     int n = g.n();
     int r = g.m();
     do {
-      c = g.randomColour(rng);
+      c = g.randomColour();
     } while (!g.liveColour(c));
     do {
-      u = g.randomVertex(rng);
-      v = g.randomVertex(rng);
+      u = g.randomVertex();
+      v = g.randomVertex();
     } while (!(u != v & !g.colouredWith(c, u) & !g.colouredWith(c, v)));
     if (!g.edgeColoured(u, v)) {
       g.colourEdge(u, v, c);
@@ -46,18 +46,18 @@ public class algorithm {
     }
   }
 
-  static void oh1(graph g1, graph g2, roomSquare R, java.util.Random rng) {
+  static void oh1(graph g1, graph g2, roomSquare R) {
     int u, v, w, c1j, c1k, c2;
     int n = g1.n();
     int r = g1.m();
     do {
-      u = g2.randomVertex(rng);
+      u = g2.randomVertex();
     } while (!g2.liveVertex(u));
     do {
-      c2 = g2.randomColour(rng);
+      c2 = g2.randomColour();
     } while (!(g2.liveColour(c2) & !g2.colouredWith(c2, u)));
     do {
-      v = g2.randomVertex(rng);
+      v = g2.randomVertex();
     } while (! (u != v & !g2.edgeColoured(u, v)));
 
     c1j = g1.colourOf(u, v);
@@ -78,16 +78,16 @@ public class algorithm {
     }
   }
 
-  static void oh2(graph g1, graph g2, roomSquare R, java.util.Random rng) {
+  static void oh2(graph g1, graph g2, roomSquare R) {
     int u, v, c1j, c2i, c2k;
     int n = g1.n();
     int r = g1.m();
     do {
-      c2i = g2.randomColour(rng);
+      c2i = g2.randomColour();
     } while (!g2.liveColour(c2i));
     do {
-      u = g2.randomVertex(rng);
-      v = g2.randomVertex(rng);
+      u = g2.randomVertex();
+      v = g2.randomVertex();
     }
     while (!(u != v & !g2.colouredWith(c2i, u) & !g2.colouredWith(c2i, v)));
 
@@ -115,9 +115,9 @@ public class algorithm {
     do {
       int rr = rng.nextInt(2);
       if (rr == 0)
-        h1(g, rng);
+        h1(g);
       else
-        h2(g, rng);
+        h2(g);
       count++;
     } while (!g.isFull());
     return count;
@@ -127,9 +127,9 @@ public class algorithm {
     for (int j = 0; j < iterations; j++) {
       int rr = rng.nextInt(2);
       if (rr == 0) {
-        oh1(g, h, R, rng);
+        oh1(g, h, R);
       } else {
-        oh2(g, h, R, rng);
+        oh2(g, h, R);
       }
       if (h.isFull()) {
         System.err.println();

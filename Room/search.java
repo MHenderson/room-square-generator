@@ -14,9 +14,9 @@ public class search {
     Random randnum = new Random(seed);
 
     for (int i = 0; i < tries; i++) {
-      graph g = new graph(n, n);
+      graph g = new graph(n, n, randnum);
       algorithm.oneFactorisation(g, randnum);
-      graph h = new graph(n, n);
+      graph h = new graph(n, n, randnum);
       roomSquare R = new roomSquare(n);
       algorithm.hillClimbing(g, h, R, count, randnum);
     }
