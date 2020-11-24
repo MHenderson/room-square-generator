@@ -97,15 +97,13 @@ public class algorithm {
 
     if (!g2.edgeColoured(u, v)) {
       g2.colourEdge(u, v, c2i);
-      R.setLeft(c1j, c2i, u);
-      R.setRight(c1j, c2i, v);
+      R.set(c1j, c2i, u, v);
     }
     else {
       c2k = g2.colourOf(u, v);
       g2.removeColour(u, v, c2k);
       g2.colourEdge(u, v, c2i);
-      R.setLeft(c1j, c2i, u);
-      R.setRight(c1j, c2i, v);
+      R.set(c1j, c2i, u, v);
       R.remove(c1j, c2k);
     }
   }
