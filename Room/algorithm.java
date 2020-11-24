@@ -66,18 +66,15 @@ public class algorithm {
 
     if (!g2.colouredWith(c2, v)) {
         g2.colourEdge(u, v, c2);
-        R.setLeft(c1j, c2, u);
-        R.setRight(c1j, c2, v);
+        R.set(c1j, c2, u, v);
     }
     else {
         w = g2.get(c2, v);
         g2.removeColour(v, w, c2);
         g2.colourEdge(u, v, c2);
-        R.setLeft(c1j, c2, u);
-        R.setRight(c1j, c2, v);
+        R.set(c1j, c2, u, v);
         c1k = g1.colourOf(w, v);
-        R.setLeft(c1k, c2, -1);
-        R.setRight(c1k, c2, -1);
+        R.remove(c1k, c2);
     }
   }
 
@@ -109,8 +106,7 @@ public class algorithm {
       g2.colourEdge(u, v, c2i);
       R.setLeft(c1j, c2i, u);
       R.setRight(c1j, c2i, v);
-      R.setLeft(c1j, c2k, -1);
-      R.setRight(c1j, c2k, -1);
+      R.remove(c1j, c2k);
     }
   }
 

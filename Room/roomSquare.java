@@ -38,4 +38,14 @@ public class roomSquare {
     R[i][j][1] = k;
   }
 
+  public void set(int i, int j, int k, int l) {
+    setLeft(i, j, k);
+    setRight(i, j, l);
+  }
+
+  public void remove(int i, int j) {
+    setLeft(i, j, -1);
+    setRight(i, j, -1);
+  }
+
 }
