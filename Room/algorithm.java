@@ -7,13 +7,13 @@ public class algorithm {
     int n = g.n();
     int r = g.m();
     do {
-      u = rng.nextInt(r);
+      u = g.randomVertex(rng);
     } while (!g.liveVertex(u));
     do {
-      c = rng.nextInt(n - 1) + 1;
+      c = g.randomColour(rng);
     } while (!(g.liveColour(c) & !g.colouredWith(c, u)));
     do {
-      v = rng.nextInt(r);
+      v = g.randomVertex(rng);
     } while (!(u != v & !g.edgeColoured(u, v)));
     if (!g.colouredWith(c, v)) {
       g.colourEdge(u, v, c);
@@ -30,11 +30,11 @@ public class algorithm {
     int n = g.n();
     int r = g.m();
     do {
-      c = rng.nextInt(n - 1) + 1;
+      c = g.randomColour(rng);
     } while (!g.liveColour(c));
     do {
-      u = rng.nextInt(r);
-      v = rng.nextInt(r);
+      u = g.randomVertex(rng);
+      v = g.randomVertex(rng);
     } while (!(u != v & !g.colouredWith(c, u) & !g.colouredWith(c, v)));
     if (!g.edgeColoured(u, v)) {
       g.colourEdge(u, v, c);
@@ -51,13 +51,13 @@ public class algorithm {
     int n = g1.n();
     int r = g1.m();
     do {
-      u = rng.nextInt(r);;
+      u = g2.randomVertex(rng);
     } while (!g2.liveVertex(u));
     do {
-      c2 = rng.nextInt(n - 1) + 1;
+      c2 = g2.randomColour(rng);
     } while (!(g2.liveColour(c2) & !g2.colouredWith(c2, u)));
     do {
-      v = rng.nextInt(r);
+      v = g2.randomVertex(rng);
     } while (! (u != v & !g2.edgeColoured(u, v)));
 
     c1j = g1.colourOf(u, v);
@@ -83,11 +83,11 @@ public class algorithm {
     int n = g1.n();
     int r = g1.m();
     do {
-      c2i = rng.nextInt(n - 1) + 1;
+      c2i = g2.randomColour(rng);
     } while (!g2.liveColour(c2i));
     do {
-      u = rng.nextInt(r);
-      v = rng.nextInt(r);
+      u = g2.randomVertex(rng);
+      v = g2.randomVertex(rng);
     }
     while (!(u != v & !g2.colouredWith(c2i, u) & !g2.colouredWith(c2i, v)));
 

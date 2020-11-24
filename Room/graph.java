@@ -136,5 +136,14 @@ public class graph {
     return result;
   }
 
+  int randomColour(java.util.Random rng) {
+    return rng.nextInt(n() - 1) + 1;
+  }
+
+  int randomVertex(java.util.Random rng) {
+    return rng.nextInt(m());
+  }
+
+
 }
 
