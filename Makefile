@@ -1,5 +1,5 @@
 search: Room/search.class Room/algorithm.class Room/graph.class Room/roomSquare.class
-	java Room.search 8 1000 100
+	java Room.search 8 1000 100 42
 
 test: Room/test.class Room/roomSquare.class
 	java Room.test
