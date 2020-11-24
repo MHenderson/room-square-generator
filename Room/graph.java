@@ -36,6 +36,11 @@ public class graph {
     set(c, v, u);
   }
 
+  public void removeColour(int u, int v, int c) {
+    set(c, u, -1);
+    set(c, v, -1);
+  }
+
   public int n() { return g.length; }
   public int m() { return g[0].length; }
 

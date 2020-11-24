@@ -20,8 +20,7 @@ public class algorithm {
     }
     else {
       w = g.get(c, v);
-      g.set(c, v, -1);
-      g.set(c, w, -1);
+      g.removeColour(v, w, c);
       g.colourEdge(u, v, c);
     }
   }
@@ -42,8 +41,7 @@ public class algorithm {
     }
     else {
       d = g.colourOf(u, v);
-      g.set(d, u, -1);
-      g.set(d, v, -1);
+      g.removeColour(u, v, d);
       g.colourEdge(u, v, c);
     }
   }
@@ -73,8 +71,7 @@ public class algorithm {
     }
     else {
         w = g2.get(c2, v);
-        g2.set(c2, v, -1);
-        g2.set(c2, w, -1);
+        g2.removeColour(v, w, c2);
         g2.colourEdge(u, v, c2);
         R.setLeft(c1j, c2, u);
         R.setRight(c1j, c2, v);
@@ -108,8 +105,7 @@ public class algorithm {
     }
     else {
       c2k = g2.colourOf(u, v);
-      g2.set(c2k, u, -1);
-      g2.set(c2k, v, -1);
+      g2.removeColour(u, v, c2k);
       g2.colourEdge(u, v, c2i);
       R.setLeft(c1j, c2i, u);
       R.setRight(c1j, c2i, v);
