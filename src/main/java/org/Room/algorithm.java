@@ -4,8 +4,6 @@ public class algorithm {
 
   static void h1(graph g) {
     int u, v, c, w;
-    int n = g.n();
-    int r = g.m();
     do {
       u = g.randomVertex();
     } while (!g.liveVertex(u));
@@ -15,20 +13,15 @@ public class algorithm {
     do {
       v = g.randomVertex();
     } while (!(u != v & !g.edgeColoured(u, v)));
-    if (!g.colouredWith(c, v)) {
-      g.colourEdge(u, v, c);
-    }
-    else {
+    if (g.colouredWith(c, v)) {
       w = g.get(c, v);
       g.removeColour(v, w, c);
-      g.colourEdge(u, v, c);
     }
+    g.colourEdge(u, v, c);
   }
 
   static void h2(graph g) {
     int u, v, c, d;
-    int n = g.n();
-    int r = g.m();
     do {
       c = g.randomColour();
     } while (!g.liveColour(c));
@@ -48,8 +41,6 @@ public class algorithm {
 
   static void oh1(graph g1, graph g2, roomSquare R) {
     int u, v, w, c1j, c1k, c2;
-    int n = g1.n();
-    int r = g1.m();
     do {
       u = g2.randomVertex();
     } while (!g2.liveVertex(u));
@@ -80,8 +71,6 @@ public class algorithm {
 
   static void oh2(graph g1, graph g2, roomSquare R) {
     int u, v, c1j, c2i, c2k;
-    int n = g1.n();
-    int r = g1.m();
     do {
       c2i = g2.randomColour();
     } while (!g2.liveColour(c2i));
@@ -110,8 +99,6 @@ public class algorithm {
 
   public static int oneFactorisation(graph g, java.util.Random rng) {
     int count = 0;
-    int n = g.n();
-    int r = g.m();
     do {
       int rr = rng.nextInt(2);
       if (rr == 0)
