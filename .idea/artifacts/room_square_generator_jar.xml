@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="room-square-generator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/room_square_generator_jar</output-path>
+    <root id="archive" name="room-square-generator.jar">
+      <element id="module-output" name="room-square-generator" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
