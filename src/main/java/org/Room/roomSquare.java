@@ -24,11 +24,10 @@ public class roomSquare {
       }
       System.out.println("|");
     }
-    System.out.println("");
+    System.out.println();
   }
 
   public int getLeft(int i, int j) { return(R[i][j][0]); }
-  public int getRight(int i, int j) { return(R[i][j][1]); }
 
   public void setLeft(int i, int j, int k) {
     R[i][j][0] = k;

@@ -125,11 +125,9 @@ public class graph {
 
   //
   public boolean isFull() {
-    int c;
     boolean result;
     int v;
     result = true;
-    int n = g.length;
     int r = g[0].length;
     for(v = 0; v < r; v++) {
       if (liveVertex(v)) {
