@@ -1,4 +1,4 @@
-package Room;
+package org.Room;
 
 public class roomSquare {
 
